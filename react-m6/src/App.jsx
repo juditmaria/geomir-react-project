@@ -1,37 +1,11 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import LoginRegister from './auth/LoginRegister'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Login } from './auth/Login'
-import { Register } from './auth/Register'
-
-function App() {
-
-  let [authPage, setAuthPage] = useState(true);
-  
-/*   let [authPageController, setAuthPage] = useState(0);
-  let authPageDefault = 0;
-
-  const authPageTrue = () => {
-    setAuthPage(authPageController + 1);
-  };
-  const authPageFalse = () => {
-    authPageDefault--;
-
-    // Per a veure que es modifica
-    console.log(authPageDefault);
-  }; */
-
+export default function App() {
   return (
-    <div className="App">
-      <button
-        onClick={() => {
-          setAuthPage(!authPage);
-        }}
-      >
-        Auth Page seleccioner
-      </button>
-      {authPage ? <Login /> : <Register />}
+    <div>
+      <LoginRegister />
     </div>
-  )
+  );
 }
-
-export default App
