@@ -1,14 +1,28 @@
+import { useState } from "react";
+
 export default function Login({ setChange }, { isLogin }) {
+  
+  let [name, setName] = useState("");
+  let [password, setPassword] = useState("");
+  
   return(
     <>
       <div className='position-absolute top-50 start-50 translate-middle d-grid gap-2 col-3 mx-auto'>
         
         <h1 className='fw-bold text-center fs-3'>Log in</h1> 
         
-        <input type="text" className="form-control rounded-pill loginRegister__input" placeholder="Email or username" aria-label="Email or username" aria-describedby="Put your email or username" required/>
+        <input name="name" type="text" className="form-control rounded-pill loginRegister__input" placeholder="Email or username" aria-label="Email or username" aria-describedby="Put your email or username" required
+          onChange = {(e) => {
+            setName(e.target.value);
+          }}
+        />
         
         <div className="input-group mb-3">
-          <input type="password" className="form-control rounded-end rounded-pill" placeholder="Password" aria-label="Password" aria-describedby="Put your password" required/>
+          <input name="password" type="password" className="form-control rounded-end rounded-pill" placeholder="Password" aria-label="Password" aria-describedby="Put your password" required
+            onChange = {(e) => {
+              setPassword(e.target.value);
+            }}
+          />
           <button className="btn btn-outline-secondary text-uppercase border-secondary rounded-start rounded-pill" type="button" id="button-addon2">forgot?</button>
         </div>
         
