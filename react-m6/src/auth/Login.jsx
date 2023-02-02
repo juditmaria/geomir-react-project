@@ -1,9 +1,26 @@
 import { useState } from "react";
 
-export default function Login({ setChange }, { isLogin }) {
+export default function Login( { setChange }, { isLogin } ) {
   
   let [name, setName] = useState("");
   let [password, setPassword] = useState("");
+
+  const sendLogin = (e) => {
+    e.preventDefault();
+
+    alert(
+      "He enviat les Dades:  " +
+        name +
+        "/" +
+        password 
+    );
+  }
+
+  const passwordForgot = () => {
+    alert(
+      "Te hemos enviado un correo para cambiar la contraseña (OUT OF ORDER owo)"
+    )
+  }
   
   return(
     <>
@@ -23,10 +40,18 @@ export default function Login({ setChange }, { isLogin }) {
               setPassword(e.target.value);
             }}
           />
-          <button className="btn btn-outline-secondary text-uppercase border-secondary rounded-start rounded-pill" type="button" id="button-addon2">forgot?</button>
+          <button className="btn btn-outline-secondary text-uppercase border-secondary rounded-start rounded-pill" type="button" id="button-addon2"
+            onClick = {() => {
+              passwordForgot()
+            }}
+          >forgot?</button>
         </div>
         
-        <button className="btn btn-primary text-uppercase fw-bold rounded-pill shadow" type="button">login</button>
+        <button className="btn btn-primary text-uppercase fw-bold rounded-pill shadow" type="button"
+          onClick = {(e) => {
+            sendLogin(e)
+          }}
+        >login</button>
 
         <div className="container text-center">
           <div className="row">
