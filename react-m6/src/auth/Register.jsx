@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { UserContext } from "./userContext.js";
 
 export default function Register ( { setChange } ) {
   
@@ -14,7 +15,12 @@ export default function Register ( { setChange } ) {
   };
 
   const sendRegister = (e) => {
-    let { age, name, email, password } = formulari;
+    let { age, name, email, password, confirmPassword } = formulari;
+    
+    if (confirmPassword !== password) {
+      alert("| ERROR: Passwords not the same |")
+      return false;
+    }
 
     alert(
       "He enviat les Dades:  " +
@@ -24,8 +30,34 @@ export default function Register ( { setChange } ) {
         "/" +
         email +
         "/" +
-        password 
+        password +
+        "/" +
+        confirmPassword
     );
+
+    fetch("https://backend.insjoaquimmir.cat/api/register", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      method: "POST",
+      body: JSON.stringify({ name, email, password })
+    })
+
+    .then((data) => data.json())
+    .then((resposta) => {
+      console.log(resposta);
+      if (resposta.success === true) {
+        alert(resposta.authToken);
+      }
+    })
+      .catch((data) => {
+        console.log(data);
+        alert("Catch");
+      });
+
+    alert("He enviat les Dades:  " + email + "/" + password);
+    
   }
 
   return(
@@ -44,6 +76,10 @@ export default function Register ( { setChange } ) {
           onChange={handleChange}
         />
         <input name="password" type="password" className="form-control rounded-pill" placeholder="Password" aria-label="Password" aria-describedby="Put your password" required
+          onChange={handleChange}
+        />
+
+        <input name="confirmPassword" type="password" className="form-control rounded-pill" placeholder="Confirm Password" aria-label="Confirm Password" aria-describedby="Put your password again" required
           onChange={handleChange}
         />
         
