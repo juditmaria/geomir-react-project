@@ -1,8 +1,7 @@
-import { useState } from "react"
-import Login from '../auth/Login'
-import Register from "./Register";
-import { UserContext } from "./userContext.js";
 
+import React, { useState } from 'react';
+import Login from '../auth/Login';
+import Register from "./Register";
 
 export default function LoginRegister () {
 
