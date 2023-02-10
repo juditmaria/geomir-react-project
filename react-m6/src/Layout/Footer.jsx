@@ -1,11 +1,8 @@
-import { useContext } from "react";
-import { UserContext } from '../userContext';
-
 export default function Footer() {
-  let { authToken, setAuthToken } = useContext(UserContext);
 
   return (
     <>
+    <hr />
       <div>
         <p>footer</p>
       </div>
