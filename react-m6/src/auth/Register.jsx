@@ -1,103 +1,112 @@
-import { useState } from "react";
-import { UserContext } from '../userContext';
+import React from 'react'
+import { useState } from 'react';
 
-export default function Register ( { setChange } ) {
-  
-  let [formulari, setFormulari] = useState({});
+export const Register = ({ setLogin }) => {
 
-  const handleChange = (e) => {
-    e.preventDefault();
 
-    setFormulari({
-      ...formulari,
-      [e.target.name]: e.target.value
-    });
-  };
+    let [ register,setRegister] = useState({});
+    let [ error, setError] = useState("");
 
-  const sendRegister = (e) => {
-    e.preventDefault();
 
-    let { age, name, email, password, confirmPassword } = formulari;
-    
-    if (confirmPassword !== password) {
-      alert("| ERROR: Passwords not the same |")
-      return false;
+
+    const handleSubmit = (e) => {
+
+        e.preventDefault();
+
+        const { name,email,password } = register
+
+        if (register.password !== register.password2 )
+        {
+            alert ("Els passwords han de coincidir")
+        }
+
+        fetch("https://backend.insjoaquimmir.cat/api/register", {
+            headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+            },
+            method: "POST",
+            // Si els noms i les variables coincideix, podem simplificar
+            body: JSON.stringify({ name, email,password})
+
+        })
+        .then((data) => data.json())
+        .then((resposta) => {
+            console.log(resposta);
+            if (resposta.success === true) {
+            //alert(resposta.authToken);
+            }
+            else
+            { 
+                setError(resposta.message);
+            }
+        })
+        .catch((data) => {
+            console.log(data);
+            alert("Catchch");
+          });
+
+        alert("He enviat les Dades:  " + email + "/" + password);
+
+        
+
+
+
     }
 
-    fetch("https://backend.insjoaquimmir.cat/api/register", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      method: "POST",
-      // Si els noms i les variables coincideix, podem simplificar
-      body: JSON.stringify({ age, name, email, password, confirmPassword })
-    })
-      .then((data) => data.json())
-      .then((resposta) => {
-        console.log(resposta);
-        if (resposta.success === true) {
-          alert(resposta.authToken);
-        }
-      })
-      .catch((data) => {
-        console.log(data);
-        alert("Catch");
-      });
 
-    alert(
-      "He enviat les Dades:  " +
-        age +
-        "/" +
-        name +
-        "/" +
-        email +
-        "/" +
-        password +
-        "/" +
-        confirmPassword
-    );
-  }
+    const handleChange = (e)=> {
 
-  return(
-      <>
-        <div className='position-absolute top-50 start-50 translate-middle d-grid gap-2 col-3 mx-auto'>
+        e.preventDefault();
+  
+  
+        setRegister({
 
-          <h1 className='fw-bold text-center fs-3'>Create your profile</h1>
+                ...register,
+                [e.target.name] : e.target.value
+                     
+    
+          })
+          console.log(register)
           
-          <input name="age" type="text" className="form-control rounded-pill" placeholder="Age" aria-label="Age" aria-describedby="Put your age" required
-            onChange={handleChange}
-          />
-          <input name="name" type="text" className="form-control rounded-pill" placeholder="Name (optional)" aria-label="Name (optional)" aria-describedby="Put your name (optional)"
-            onChange={handleChange}
-          />
-          <input name="email" type="email" className="form-control rounded-pill" placeholder="Email" aria-label="Email" aria-describedby="Put your email" required
-            onChange={handleChange}
-          />
-          <input name="password" type="password" className="form-control rounded-pill" placeholder="Password" aria-label="Password" aria-describedby="Put your password" required
-            onChange={handleChange}
-          />
+    }
 
-          <input name="confirmPassword" type="password" className="form-control rounded-pill" placeholder="Confirm Password" aria-label="Confirm Password" aria-describedby="Put your password again" required
-            onChange={handleChange}
-          />
 
-          // mostrar errores
-          <div className="error-message"></div>
-          
-          <button className="btn btn-primary text-uppercase fw-bold rounded-pill shadow" type="button"
-          onClick={(e) => {
-            sendRegister(e)
-          }}
-          >create account</button>
-          
-          <p className="text-center text-decoration-underline loginRegister__auth"
-            onClick={() => {
-              setChange(true)
-            }}
-          >Already registered ?</p>
+    
+  return (
+   
+    <section
+            className="absolute top-1/2 left-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center">
+            <div x-show="isLoginPage" className="space-y-4">
+                <header className="mb-3 text-2xl font-bold">Crea Usuari</header>
+                
+                <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                    <input type="text" name="name" placeholder="Name"  onChange={ handleChange}
+                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
+                </div>
+                <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                    <input type="text" name="email" placeholder="Email"  onChange={ handleChange}
+                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
+                </div>
+                <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                    <input type="password" name="password" placeholder="Password"  onChange={ handleChange}
+                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
+                </div>
+                <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                    <input type="password2" name="password2" placeholder="Repeat Password"  onChange={ handleChange}
+                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
+                </div>
+                { error ? (<div className="flex w-full items-center space-x-2 rounded-2xl bg-red-50 px-4 ring-2 ring-red-200 ">{error}</div>) : (<></>)  }
+                <button onClick={handleSubmit }
+                    className="w-full rounded-2xl border-b-4 border-b-blue-600 bg-blue-500 py-3 font-bold text-white hover:bg-blue-400 active:translate-y-[0.125rem] active:border-b-blue-400">
+                    CREA COMPTE
+                </button>
 
-        </div>
-      </>
+                <div className="mt-8 text-sm text-gray-400">
+                    <button onClick={ ()=> setLogin(true) } className="underline">Ja registrat?</button>                    
+                </div>
+            </div>
+    </section>
+
   )
 }

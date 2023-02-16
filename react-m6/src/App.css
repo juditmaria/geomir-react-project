@@ -1,16 +1,4 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.loginRegister__auth {
-  color: grey;
-}
-
-.loginRegister__auth:hover {
-  color: grey;
-  cursor: pointer;
-  text-shadow: lightsteelblue 1px 0 10px;
-}
+.leaflet-container {
+    width: 100%;
+    height: 100vh;
+  }

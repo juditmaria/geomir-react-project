@@ -1,15 +1,21 @@
+import React from 'react'
+import { Login } from './Login'
+import { Register } from './Register'
 
-import React, { useState } from 'react';
-import Login from '../auth/Login';
-import Register from "./Register";
 
-export default function LoginRegister () {
+import { useState } from 'react'
 
-    let [isLogin, setLogin] = useState(true);
 
+export const LoginRegister = () => {
+  
+    let [isLogin,setLogin] = useState(true);
+  
     return (
-        <div>
-            {isLogin ? <Login setChange={setLogin} /> : <Register setChange={setLogin} /> }
-        </div>
-    )
-} 
+
+    <>
+    
+        { isLogin ? <Login setLogin={setLogin}/> : <Register setLogin={setLogin}/> }            
+    </>
+    
+  )
+}
