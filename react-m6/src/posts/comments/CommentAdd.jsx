@@ -3,10 +3,17 @@ import { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../usercontext";
 import { CommentsContext } from "./commentsContext";
+import { useForm } from "../../hooks/useForm";
 
 export const CommentAdd = ({ id }) => {
+
+  const { formState, onInputChange } = useForm({
+    comment: "",
+  });
+    
+  const {comment} = formState;
+
   let { usuari, setUsuari, authToken, setAuthToken } = useContext(UserContext);
-  const [comment, setComment] = useState("");
   let { setAdd, setRefresca, commentsCount, setCommentsCount } =
     useContext(CommentsContext);
 
@@ -22,7 +29,7 @@ export const CommentAdd = ({ id }) => {
         },
         method: "POST",
         // body: JSON.stringify({ name,description,upload,latitude,longitude,visibility })
-        body: JSON.stringify({ comment }),
+        body: JSON.stringify( formState ),
       }
     );
     let resposta = await data.json();
@@ -46,7 +53,7 @@ export const CommentAdd = ({ id }) => {
             </h2>
             <div class="w-full md:w-full px-3 mb-2 mt-2">
               <textarea
-                onChange={(e) => setReview(e.target.value)}
+                onChange={ onInputChange }
                 value={comment}
                 class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
                 name="body"
