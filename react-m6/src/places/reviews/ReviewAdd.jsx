@@ -11,7 +11,7 @@ export const ReviewAdd = ({ id }) => {
       review: "",
    });
    
-   const {review} = formState;
+   let {review} = formState;
 
    let { usuari, setUsuari,authToken,setAuthToken } = useContext(UserContext);
    let {setAdd, setRefresca, reviewsCount, setReviewsCount } = useContext(ReviewsContext)
@@ -36,8 +36,8 @@ export const ReviewAdd = ({ id }) => {
       if (resposta.success == true )
       {
          console.log("Todo bien") 
-         setReview("")
-         setRefresca(true);
+         review = "" 
+         setRefresca(true)
          setReviewsCount(reviewsCount+1)
          
       }
@@ -56,7 +56,7 @@ export const ReviewAdd = ({ id }) => {
             <div class="flex flex-wrap -mx-3 mb-6">
                <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">Afegeix un nou comentari</h2>
                <div class="w-full md:w-full px-3 mb-2 mt-2">
-                  <textarea onChange={ onInputChange }  value= { review } class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="body" placeholder='Escriu el teu comentari' required></textarea>
+                  <textarea onChange={ onInputChange } class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="review" placeholder='Escriu el teu comentari' required></textarea>
                </div>
                <div class="w-full md:w-full flex items-start md:w-full px-3">
                   <div class="flex items-start w-1/2 text-gray-700 px-2 mr-auto">
@@ -72,8 +72,6 @@ export const ReviewAdd = ({ id }) => {
                </div>
             </form>
       </div>
-
-
 
     </>
   )
