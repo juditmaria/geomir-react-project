@@ -42,7 +42,13 @@ export const CommentAdd = ({ id }) => {
     } else {
       console.log("S'ha produit un error");
     }
-  };
+  }
+
+  const onResetForm = () => {
+    comment = "";
+    document.getElementById("reset").value = ""
+  }
+
   return (
     <>
       <div class="flex mx-auto items-center justify-center  mt-6 mx-8 mb-4 max-w-lg">
@@ -84,6 +90,13 @@ export const CommentAdd = ({ id }) => {
                   class="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100"
                   value="Post Review"
                 />
+                <input
+                  onClick={onResetForm}
+                  type="button"
+                  class="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100"
+                  value="Reset"
+                />
+
               </div>
             </div>
           </div>
