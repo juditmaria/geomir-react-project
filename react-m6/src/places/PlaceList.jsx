@@ -1,11 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useFetcher } from 'react-router-dom'
 import { useContext } from 'react';
 import { UserContext } from '../usercontext';
 
 export const PlaceList = ({v, deletePlace}) => {
   
     let { usuari, setUsuari,authToken,setAuthToken } = useContext(UserContext)
+    /* aplicar fetch en el componente:*/
+    const {data, error, loading,setUrl } = useFetch();
 
     // const deletePlace = (id,e) => {
   
@@ -44,6 +46,7 @@ export const PlaceList = ({v, deletePlace}) => {
     
     
     // }
+
     return (
   
   <>

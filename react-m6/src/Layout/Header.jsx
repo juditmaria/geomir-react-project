@@ -12,6 +12,7 @@ export default function Header() {
         <Link to="/places">Places</Link>
         <Link to="/posts">Posts</Link>
         <Link to="/about">About</Link>
+        <Link to="/todos">ToDos </Link> 
       
         Token: <strong>{authToken}</strong>
       </div>
